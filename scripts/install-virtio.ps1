@@ -6,7 +6,7 @@ if (-not (Test-Path $virtioMsi)) {
 }
 
 Write-Host "Installing VirtIO drivers from: $virtioMsi"
-$result = Start-Process msiexec -Wait -PassThru -ArgumentList "/i `"$virtioMsi`" /qn /norestart /l*v C:\virtio-install.log"
+$result = Start-Process msiexec -Wait -PassThru -NoNewWindow -ArgumentList "/i `"$virtioMsi`" /qn /norestart /l*v C:\virtio-install.log"
 if ($result.ExitCode -ne 0) {
     Write-Error "VirtIO MSI install failed with exit code $($result.ExitCode)"
     Get-Content C:\virtio-install.log | Select-Object -Last 50

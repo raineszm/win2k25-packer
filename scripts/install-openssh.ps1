@@ -29,7 +29,7 @@ if (Test-Path $sshdConfig) {
     Set-Content -Path $sshdConfig -Value $content -Encoding UTF8
     Write-Host "Patched sshd_config: removed Match Group administrators block"
 } else {
-    Write-Warning "sshd_config not found at $sshdConfig — skipping patch"
+    Write-Warning "sshd_config not found at $sshdConfig - skipping patch"
 }
 
 Restart-Service sshd

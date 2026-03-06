@@ -11,7 +11,7 @@ if (-not (Test-Path $conf)) {
 }
 
 Write-Host "Installing Cloudbase-Init..."
-$result = Start-Process msiexec -Wait -PassThru -ArgumentList "/i `"$msi`" /qn /norestart /l*v C:\cloudbase-install.log"
+$result = Start-Process msiexec -Wait -PassThru -NoNewWindow -ArgumentList "/i `"$msi`" /qn /norestart /l*v C:\cloudbase-install.log"
 if ($result.ExitCode -ne 0) {
     Write-Error "Cloudbase-Init install failed with exit code $($result.ExitCode)"
     Get-Content C:\cloudbase-install.log | Select-Object -Last 50

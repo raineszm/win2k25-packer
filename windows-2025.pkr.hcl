@@ -24,11 +24,11 @@ source "qemu" "windows_2025" {
   memory = 4096
   cpus   = 4
 
-  boot_wait = "2s"
+  boot_wait = "1s"
 
-  headless  = false
-  boot_steps = [
-    ["<Space>", "Press key to boot from CD."]
+  headless  = true
+  boot_command = [
+    "<enter>", "<enter>"
   ]
 
   # UEFI firmware; vars file is modified in-place by QEMU so build.sh supplies a fresh copy.
@@ -45,7 +45,7 @@ source "qemu" "windows_2025" {
   # second CD-ROM. install-virtio.ps1 scans all drives for the MSI, so the
   # exact drive letter assigned here does not matter.
   cd_files = [
-    var.virtio_msi_path,
+    # var.virtio_msi_path,
     var.cloudbase_msi_path,
     "conf/cloudbase-init.conf",
   ]
@@ -70,10 +70,10 @@ build {
     script = "scripts/install-openssh.ps1"
   }
 
-  # Install VirtIO drivers from mounted ISO
-  provisioner "powershell" {
-    script = "scripts/install-virtio.ps1"
-  }
+  # # Install VirtIO drivers from mounted ISO
+  # provisioner "powershell" {
+  #   script = "scripts/install-virtio.ps1"
+  # }
 
   # Install Cloudbase-Init and apply config
   provisioner "powershell" {
