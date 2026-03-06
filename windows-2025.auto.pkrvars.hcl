@@ -1,0 +1,5 @@
+windows_iso_path   = "winserver2025-final.iso"
+cloudbase_msi_path = "../img/assets/CloudbaseInitSetup_x64.msi"
+admin_password     = "P@ssw0rd-Build!"
+output_directory   = "output-windows-2025"
+disk_size          = "40960"
