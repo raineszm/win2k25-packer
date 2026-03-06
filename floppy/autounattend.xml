@@ -97,7 +97,7 @@
           <InstallFrom>
             <MetaData wcm:action="add">
               <Key>/IMAGE/NAME</Key>
-              <Value>Windows Server 2025 SERVERSTANDARD</Value>
+              <Value>Windows Server 2025 SERVERSTANDARDCORE</Value>
             </MetaData>
           </InstallFrom>
           <WillShowUI>OnError</WillShowUI>
