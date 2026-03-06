@@ -41,11 +41,7 @@ source "qemu" "windows_2025" {
     "floppy/enable-winrm.ps1",
   ]
 
-  # cd_files creates a small ISO from the listed files and attaches it as a
-  # second CD-ROM. install-virtio.ps1 scans all drives for the MSI, so the
-  # exact drive letter assigned here does not matter.
   cd_files = [
-    # var.virtio_msi_path,
     var.cloudbase_msi_path,
     "conf/cloudbase-init.conf",
   ]
@@ -59,7 +55,7 @@ source "qemu" "windows_2025" {
 
   output_directory = var.output_directory
   vm_name          = "windows-server-2025.qcow2"
-  shutdown_command = "shutdown /s /t 0 /f /d p:4:1 /c \"Packer Shutdown\""
+  shutdown_command = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /oobe /generalize /shutdown /mode:vm"
 }
 
 build {
@@ -70,18 +66,9 @@ build {
     script = "scripts/install-openssh.ps1"
   }
 
-  # # Install VirtIO drivers from mounted ISO
-  # provisioner "powershell" {
-  #   script = "scripts/install-virtio.ps1"
-  # }
-
   # Install Cloudbase-Init and apply config
   provisioner "powershell" {
     script = "scripts/install-cloudbase.ps1"
   }
 
-  # Sysprep to generalize — VM shuts down after this
-  provisioner "powershell" {
-    script = "scripts/sysprep.ps1"
-  }
 }

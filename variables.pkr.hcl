@@ -3,12 +3,6 @@ variable "windows_iso_path" {
   description = "Path to the Windows Server 2025 ISO"
 }
 
-variable "virtio_msi_path" {
-  type        = string
-  description = "Path to the virtio-win-gt-x64.msi installer (extracted from virtio-win ISO by build.sh)"
-  default     = "/tmp/virtio-win-gt-x64.msi"
-}
-
 variable "cloudbase_msi_path" {
   type        = string
   description = "Path to the Cloudbase-Init MSI installer"
