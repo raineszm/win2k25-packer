@@ -2,7 +2,7 @@ SOURCE_WIN_ISO ?= input/winserver2025.iso
 WIN_ISO        ?= winserver2025-final.iso
 VIRTIO_ISO     ?= input/virtio-win.iso
 OVMF_VARS      := /tmp/OVMF_VARS_win2025.fd
-DISTRO_BUILDER ?= distorbuilder
+DISTRO_BUILDER ?= distrobuilder
 
 .PHONY: all build clean
 
