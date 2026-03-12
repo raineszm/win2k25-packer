@@ -1,4 +1,4 @@
-windows_iso_path   = "winserver2025-final.iso"
+windows_iso_path   = "input/winserver2025.iso"
 cloudbase_msi_path = "input/CloudbaseInitSetup_x64.msi"
 output_directory   = "output/"
 admin_password     = "P@ssw0rd-Build!"

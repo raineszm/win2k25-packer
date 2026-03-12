@@ -44,6 +44,7 @@ source "qemu" "windows_2025" {
   cd_files = [
     var.cloudbase_msi_path,
     "conf/cloudbase-init.conf",
+    "drivers"
   ]
 
   cpu_model = "host"

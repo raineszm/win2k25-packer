@@ -1,4 +1,5 @@
-output*
+output/*
 *.iso
 input/
 .claude
+drivers/
