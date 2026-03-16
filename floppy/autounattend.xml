@@ -159,14 +159,6 @@
                xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
       <TimeZone>UTC</TimeZone>
       <!-- No ComputerName: Cloudbase-Init sets hostname from metadata -->
-      <FirstLogonCommands>
-        <!-- Disable SConfig auto-launch so it doesn't block FirstLogonCommands -->
-        <SynchronousCommand wcm:action="add">
-          <Order>1</Order>
-          <CommandLine>reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server\ServerCore" /v SConfigEnabled /t REG_DWORD /d 0 /f</CommandLine>
-          <RequiresUserInput>false</RequiresUserInput>
-        </SynchronousCommand>
-      </FirstLogonCommands>
     </component>
 
     <component name="Microsoft-Windows-ServerManager-SvrMgrNc"
@@ -276,6 +268,19 @@
           <CommandLine>pnputil /add-driver E:\*.inf /subdirs /install</CommandLine>
           <Description>Install all remaining VirtIO drivers</Description>
           <RequiresUserInput>false</RequiresUserInput>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+        <Order>5</Order>
+        <CommandLine>reg add HKLM\SYSTEM\CurrentControlSet\Services\vioscsi /v Start /t REG_DWORD /d 0 /f</CommandLine>
+        <Description>Enable vioscsi as boot driver</Description>
+        <RequiresUserInput>false</RequiresUserInput>
+        </SynchronousCommand>
+
+        <SynchronousCommand wcm:action="add">
+        <Order>6</Order>
+        <CommandLine>reg add HKLM\SYSTEM\CurrentControlSet\Services\viostor /v Start /t REG_DWORD /d 0 /f</CommandLine>
+        <Description>Enable viostor as boot driver</Description>
+        <RequiresUserInput>false</RequiresUserInput>
         </SynchronousCommand>
       </FirstLogonCommands>
 
