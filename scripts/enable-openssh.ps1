@@ -1,7 +1,8 @@
 # Install OpenSSH Server capability
+# If not already present (Included by defualt on Windows Server 2025 and later)
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
-# Configure and start sshd
+# Configure sshd to autostart and then enable
 Set-Service sshd -StartupType Automatic
 Start-Service sshd
 

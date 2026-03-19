@@ -64,12 +64,15 @@ build {
 
   # Install and configure OpenSSH server
   provisioner "powershell" {
-    script = "scripts/install-openssh.ps1"
+    script = "scripts/enable-openssh.ps1"
+  }
+
+  provisioner "powershell" {
+    script = "scripts/customize.ps1"
   }
 
   # Install Cloudbase-Init and apply config
   provisioner "powershell" {
     script = "scripts/install-cloudbase.ps1"
   }
-
 }
