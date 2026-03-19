@@ -24,6 +24,12 @@ variable "disk_size" {
   description = "Disk size in MB"
 }
 
+variable "windows_image_name" {
+  type        = string
+  description = "Windows image name to install (e.g. SERVERSTANDARDCORE or SERVERSTANDARD)"
+  default     = "Windows Server 2025 SERVERSTANDARDCORE"
+}
+
 variable "ovmf_vars_path" {
   type        = string
   description = "Path to a writable copy of OVMF_VARS for the build (modified in place by QEMU)"

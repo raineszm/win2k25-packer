@@ -35,11 +35,17 @@ source "qemu" "windows_2025" {
   efi_firmware_code = "/usr/share/OVMF/OVMF_CODE_4M.fd"
   efi_firmware_vars = var.ovmf_vars_path
 
-  # floppy_files mounts autounattend.xml and the WinRM bootstrap script on A:\.
+  # floppy_files mounts static scripts; floppy_content renders the templated autounattend.xml on A:\.
   floppy_files = [
-    "floppy/autounattend.xml",
     "floppy/enable-winrm.ps1",
   ]
+
+  floppy_content = {
+    "autounattend.xml" = templatefile("floppy/autounattend.xml.tpl", {
+      admin_password     = var.admin_password
+      windows_image_name = var.windows_image_name
+    })
+  }
 
   cd_files = [
     var.cloudbase_msi_path,

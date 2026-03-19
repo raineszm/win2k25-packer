@@ -1,8 +1,8 @@
-# Set the port and speed
-bcdedit /emssettings EMSPORT:1 EMSBAUDRATE:115200
+# Use platform (UEFI) serial output — required for OVMF/UEFI; EMSPORT:1 is BIOS-only
+bcdedit /emssettings USEPLATFORMOUTPUT
 
 # Turn it on for the current OS entry
-bcdedit /ems {current} ON
+bcdedit /ems '{current}' ON
 
 Write-Host "Emergency Management Services (EMS) enabled on COM1"
 

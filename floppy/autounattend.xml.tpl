@@ -110,7 +110,7 @@
           <InstallFrom>
             <MetaData wcm:action="add">
               <Key>/IMAGE/NAME</Key>
-              <Value>Windows Server 2025 SERVERSTANDARDCORE</Value>
+              <Value>${windows_image_name}</Value>
             </MetaData>
           </InstallFrom>
           <WillShowUI>OnError</WillShowUI>
@@ -245,7 +245,7 @@
 
       <UserAccounts>
         <AdministratorPassword>
-          <Value>P@ssw0rd-Build!</Value>
+          <Value>${admin_password}</Value>
           <PlainText>true</PlainText>
         </AdministratorPassword>
       </UserAccounts>
@@ -253,7 +253,7 @@
       <AutoLogon>
         <Username>Administrator</Username>
         <Password>
-          <Value>P@ssw0rd-Build!</Value>
+          <Value>${admin_password}</Value>
           <PlainText>true</PlainText>
         </Password>
         <Enabled>true</Enabled>
