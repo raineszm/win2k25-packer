@@ -5,6 +5,10 @@ OVMF_VARS      := /tmp/OVMF_VARS_win2025.fd
 # clean E:\drivers\ subdirectory alongside the cloudbase files at E:\ root.
 DRIVERS_DIR    := drivers
 
+PWSH_VERSION   := 7.4.1
+PWSH_MSI       := input/PowerShell-$(PWSH_VERSION)-win-x64.msi
+PWSH_URL       := https://github.com/PowerShell/PowerShell/releases/download/v$(PWSH_VERSION)/PowerShell-$(PWSH_VERSION)-win-x64.msi
+
 .PHONY: all build clean
 
 all: build
@@ -28,7 +32,11 @@ $(DRIVERS_DIR): $(VIRTIO_ISO)
 $(OVMF_VARS):
 	cp /usr/share/OVMF/OVMF_VARS_4M.fd $(OVMF_VARS)
 
-build: $(DRIVERS_DIR) $(OVMF_VARS)
+$(PWSH_MSI):
+	mkdir -p input
+	curl -fSL -o $@ $(PWSH_URL)
+
+build: $(DRIVERS_DIR) $(OVMF_VARS) $(PWSH_MSI)
 	packer build \
 	    -var "windows_iso_path=$(SOURCE_WIN_ISO)" \
 	    .

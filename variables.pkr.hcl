@@ -8,6 +8,12 @@ variable "cloudbase_msi_path" {
   description = "Path to the Cloudbase-Init MSI installer"
 }
 
+variable "pwsh_msi_path" {
+  type        = string
+  description = "Path to the PowerShell 7 MSI installer"
+  default     = "input/PowerShell-7.4.1-win-x64.msi"
+}
+
 variable "admin_password" {
   type        = string
   sensitive   = true

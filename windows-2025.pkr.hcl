@@ -10,7 +10,7 @@ packer {
 
 source "qemu" "windows_2025" {
   iso_url      = var.windows_iso_path
-  iso_checksum = "none"  # repacked ISO is a host-local artifact; original verified in build.sh
+  iso_checksum = "7b052573ba7894c9924e3e87ba732ccd354d18cb75a883efa9b900ea125bfd51" # repacked ISO is a host-local artifact; original verified in build.sh
 
   disk_interface   = "virtio-scsi"
   net_device       = "virtio-net"
@@ -26,7 +26,7 @@ source "qemu" "windows_2025" {
 
   boot_wait = "1s"
 
-  headless  = true
+  headless = true
   boot_command = [
     "<enter>", "<enter>"
   ]
@@ -49,6 +49,7 @@ source "qemu" "windows_2025" {
 
   cd_files = [
     var.cloudbase_msi_path,
+    var.pwsh_msi_path,
     "conf/cloudbase-init.conf",
     "drivers"
   ]
@@ -68,13 +69,18 @@ source "qemu" "windows_2025" {
 build {
   sources = ["source.qemu.windows_2025"]
 
+  provisioner "powershell" {
+    script = "scripts/customize.ps1"
+  }
+
   # Install and configure OpenSSH server
   provisioner "powershell" {
     script = "scripts/enable-openssh.ps1"
   }
 
-  provisioner "powershell" {
-    script = "scripts/customize.ps1"
+  provisioner "file" {
+    content     = "Set-PSReadLineOption -EditMode Emacs"
+    destination = "C:/Users/Administrator/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
   }
 
   # Install Cloudbase-Init and apply config

@@ -6,16 +6,23 @@ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Set-Service sshd -StartupType Automatic
 Start-Service sshd
 
-# Add firewall rule for SSH
 New-NetFirewallRule -Name "OpenSSH-Server-In" -DisplayName "OpenSSH Server (sshd)" `
     -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 
-# Set PowerShell as the default SSH shell
+Write-Host "Setting powershell 7 as default shell for SSH"
+$pwshPath = (Get-Command pwsh.exe -ErrorAction SilentlyContinue).Source
+
+# Fallback to the default install location if Get-Command fails
+if (-not $pwshPath) {
+    $pwshPath = "C:\Program Files\PowerShell\7\pwsh.exe"
+}
+
 $regPath = "HKLM:\SOFTWARE\OpenSSH"
 if (-not (Test-Path $regPath)) {
     New-Item -Path $regPath -Force | Out-Null
 }
-Set-ItemProperty -Path $regPath -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+
+Set-ItemProperty -Path $regPath -Name "DefaultShell" -Value $pwshPath
 
 # Patch sshd_config: remove the 'Match Group administrators' block so that
 # per-user authorized_keys is used for all accounts including Administrator.
